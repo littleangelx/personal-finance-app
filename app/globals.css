@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.categoryDropdown {
+  width: 12rem;
+}
+
+.roundedTooltip {
+  border-radius: 0.5rem;
+}
