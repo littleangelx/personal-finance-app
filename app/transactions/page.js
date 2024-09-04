@@ -146,10 +146,10 @@ const Transactions = () => {
       </h1>
       <section className="w-full bg-white rounded-xl py-6 px-5 md:p-8">
         <div className="flex justify-between items-center mb-9">
-          <div className="md:w-40 h-12 rounded-lg border border-beige-500 flex justify-between items-center px-5">
+          <div className="md:w-40 xl:w-80 h-12 rounded-lg border border-beige-500 flex justify-between items-center px-5">
             <input
               placeholder="Search transactions"
-              className="placeholder:text-sm placeholder:text-beige-500 outline-none border-none text-sm md:w-24 md:overflow-ellipsis"
+              className="placeholder:text-sm placeholder:text-beige-500 outline-none border-none text-sm md:w-24 xl:w-80 md:overflow-ellipsis"
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             <img src="/assets/images/icon-search.svg" />
@@ -200,7 +200,7 @@ const Transactions = () => {
             />
           </div>
           <div className="hidden md:flex gap-6">
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-2 items-center cursor-pointer">
               <label className="text-grey-500 text-sm">Sort by</label>
               <Dropdown
                 options={SORT_OPTIONS}
@@ -208,7 +208,7 @@ const Transactions = () => {
                 onChange={(e) => setSortBy(e.value)}
               />
             </div>
-            <div className="hidden md:flex gap-2 items-center">
+            <div className="hidden md:flex gap-2 items-center cursor-pointer">
               <label className="text-grey-500 text-sm">Category</label>
               <Dropdown
                 options={CATEGORIES}
