@@ -16,13 +16,15 @@ const publicSans = Public_Sans({ subsets: ["latin"] });
 //   description: "Coded by Rachel Kirkland",
 // };
 
+// persistor.purge();
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Provider store={store}>
-        <PersistGate persistor={persistor} loading={null}>
-          <SidebarProvider>
-            <body className={publicSans.className}>
+      <body className={publicSans.className}>
+        <SidebarProvider>
+          <Provider store={store}>
+            <PersistGate persistor={persistor} loading={null}>
               <div className=" bg-beige-100">
                 <div className="w-screen hidden xl:flex">
                   <DesktopNav />
@@ -32,10 +34,10 @@ export default function RootLayout({ children }) {
                 </div>
                 <div className="bg-beige-100">{children}</div>
               </div>
-            </body>
-          </SidebarProvider>
-        </PersistGate>
-      </Provider>
+            </PersistGate>
+          </Provider>
+        </SidebarProvider>
+      </body>
     </html>
   );
 }

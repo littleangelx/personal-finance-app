@@ -18,8 +18,10 @@
     "react-paginate": "^8.2.0",
     "react-redux": "^9.1.2",
     "react-responsive": "^10.0.0",
+    "react-select": "^5.8.0",
     "react-tooltip": "^5.28.0",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "eslint": "^8",

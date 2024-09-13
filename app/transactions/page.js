@@ -11,6 +11,8 @@ import { useMediaQuery } from "react-responsive";
 import { Tooltip } from "react-tooltip";
 import SmallScreenMenu from "@/components/SmallScreenMenu";
 import ReactPaginate from "react-paginate";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useSelector } from "react-redux";
 
 const SORT_OPTIONS = [
   "Latest",
@@ -36,6 +38,10 @@ const CATEGORIES = [
 ];
 
 const Transactions = () => {
+  const searchParams = useSearchParams();
+  const selectedCategory =
+    searchParams.get("selectedCategory") || "All Transactions";
+
   const { isMinimised } = useMinimised();
 
   const isDesktop = useMediaQuery({ minWidth: 1280 });
@@ -51,7 +57,7 @@ const Transactions = () => {
   const [sortedResults, setSortedResults] = useState(filteredResults);
 
   const [sortBy, setSortBy] = useState("Latest");
-  const [category, setCategory] = useState("All Transactions");
+  const [category, setCategory] = useState(selectedCategory);
 
   const [pagesToShow, setPagesToShow] = useState([]);
 
@@ -83,7 +89,7 @@ const Transactions = () => {
         searchResults.filter((result) => result.category === category)
       );
     }
-  }, [searchResults, category]);
+  }, [searchResults, category, selectedCategory]);
 
   useEffect(() => {
     setNumPages(Math.ceil(filteredResults.length / 10));
