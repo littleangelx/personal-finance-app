@@ -1,5 +1,3 @@
-"use client";
-
 import { addToPot, withdrawFromPot } from "@/store/fundsSlice";
 import { useState } from "react";
 import { useDispatch } from "react-redux";

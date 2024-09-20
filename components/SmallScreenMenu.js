@@ -1,5 +1,3 @@
-"use client";
-
 const SmallScreenMenu = ({ options, onSelect }) => {
   return (
     <div

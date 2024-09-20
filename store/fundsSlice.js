@@ -1,5 +1,3 @@
-"use client";
-
 import { createSlice } from "@reduxjs/toolkit";
 import { v4 } from "uuid";
 
@@ -16,12 +14,6 @@ const initialState = {
       maximum: 50.0,
       theme: {
         value: "#277C78",
-        label: (
-          <div className="flex gap-2 items-center">
-            <div className="w-4 h-4 rounded-full bg-green" />
-            <span>Green</span>
-          </div>
-        ),
       },
     },
     {
@@ -30,12 +22,6 @@ const initialState = {
       maximum: 750.0,
       theme: {
         value: "#82C9D7",
-        label: (
-          <div className="flex gap-2 items-center">
-            <div className="w-4 h-4 rounded-full bg-cyan" />
-            <span>Cyan</span>
-          </div>
-        ),
       },
     },
     {
@@ -44,12 +30,6 @@ const initialState = {
       maximum: 75.0,
       theme: {
         value: "#F2CDAC",
-        label: (
-          <div className="flex gap-2 items-center">
-            <div className="w-4 h-4 rounded-full bg-yellow" />
-            <span>Yellow</span>
-          </div>
-        ),
       },
     },
     {
@@ -58,12 +38,6 @@ const initialState = {
       maximum: 100.0,
       theme: {
         value: "#626070",
-        label: (
-          <div className="flex gap-2 items-center">
-            <div className="w-4 h-4 rounded-full bg-navy" />
-            <span>Navy</span>
-          </div>
-        ),
       },
     },
   ],
@@ -163,15 +137,15 @@ const fundsSlice = createSlice({
       const foundPot = state.pots.find(
         (pot) => pot.name === action.payload.name
       );
-      foundPot.total += action.payload.amount;
-      state.balance -= action.payload.amount;
+      foundPot.total += +action.payload.amount;
+      state.balance.current -= +action.payload.amount;
     },
     withdrawFromPot(state, action) {
       const foundPot = state.pots.find(
         (pot) => pot.name === action.payload.name
       );
-      foundPot.total -= action.payload.amount;
-      state.balance += action.payload.amount;
+      foundPot.total -= +action.payload.amount;
+      state.balance.current += +action.payload.amount;
     },
     editPot(state, action) {
       const foundPot = state.pots.find((pot) => pot.id === action.payload.id);
@@ -180,11 +154,41 @@ const fundsSlice = createSlice({
       foundPot.theme = action.payload.theme;
     },
     deletePot(state, action) {
+      const foundPot = state.pots.find((pot) => pot.id === action.payload.id);
+      state.balance.current += foundPot.total;
       state.pots = state.pots.filter((pot) => pot.id !== action.payload.id);
+    },
+    addBudget(state, action) {
+      state.budgets.push({
+        id: v4(),
+        category: action.payload.category,
+        maximum: action.payload.maximum,
+        theme: { value: action.payload.theme },
+      });
+    },
+    editBudget(state, action) {
+      const foundBudget = state.budgets.find(
+        (budget) => budget.id === action.payload.id
+      );
+      foundBudget.maximum = action.payload.maximum;
+      foundBudget.theme = { value: action.payload.theme };
+    },
+    deleteBudget(state, action) {
+      state.budgets = state.budgets.filter(
+        (budget) => budget.id !== action.payload.id
+      );
     },
   },
 });
 
-export const { addPot, addToPot, withdrawFromPot, editPot, deletePot } =
-  fundsSlice.actions;
+export const {
+  addPot,
+  addToPot,
+  withdrawFromPot,
+  editPot,
+  deletePot,
+  addBudget,
+  editBudget,
+  deleteBudget,
+} = fundsSlice.actions;
 export default fundsSlice.reducer;

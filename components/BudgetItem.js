@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 
 import jsonData from "@/public/assets/data.json";
@@ -7,13 +5,17 @@ import { format } from "date-fns";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
+import EditBudgetModal from "./EditBudgetModal";
+import DeleteBudgetModal from "./DeleteBudgetModal";
 
-const BudgetItem = ({ category, maximum, theme }) => {
+const BudgetItem = ({ id, category, maximum, theme }) => {
   const router = useRouter();
 
   const dispatch = useDispatch();
 
   const [showBudgetMenu, setShowBudgetMenu] = useState(false);
+  const [editBudgetVisible, setEditBudgetVisible] = useState(false);
+  const [deleteBudgetVisible, setDeleteBudgetVisible] = useState(false);
 
   const latestTransactions = jsonData.transactions
     .filter((transaction) => transaction.category === category)
@@ -29,8 +31,16 @@ const BudgetItem = ({ category, maximum, theme }) => {
     -1 * filteredTransactions.reduce((acc, cur) => acc + cur.amount, 0);
   const percentageSpent = (spent / maximum) * 100;
 
+  const handleEditVisible = (value) => {
+    setEditBudgetVisible(value);
+  };
+
+  const handleDeleteVisible = (value) => {
+    setDeleteBudgetVisible(value);
+  };
+
   return (
-    <div className="w-full p-8 flex flex-col gap-5 bg-white rounded-xl">
+    <div className="w-full p-6 md:p-8 flex flex-col gap-5 bg-white rounded-xl">
       <div className="flex justify-between items-center">
         <div className="flex gap-4 items-center">
           <div
@@ -52,10 +62,18 @@ const BudgetItem = ({ category, maximum, theme }) => {
               className="flex flex-col gap-3 py-3 px-5 bg-white absolute right-6 top-8 rounded-lg w-44"
               style={{ boxShadow: "0px 4px 24px 0px rgba(0, 0, 0, 0.25)" }}
             >
-              <p className="text-grey-900 text-sm cursor-pointer">
+              <p
+                className="text-grey-900 text-sm cursor-pointer"
+                onClick={() => handleEditVisible(true)}
+              >
                 Edit Budget
               </p>
-              <p className="text-red text-sm cursor-pointer">Delete Budget</p>
+              <p
+                className="text-red text-sm cursor-pointer"
+                onClick={() => handleDeleteVisible(true)}
+              >
+                Delete Budget
+              </p>
             </div>
           )}
         </div>
@@ -113,7 +131,7 @@ const BudgetItem = ({ category, maximum, theme }) => {
         </div>
         <div className="flex flex-col gap-5 p-5 rounded-xl bg-beige-100">
           <div className="flex justify-between items-center">
-            <h3 className="text-grey-900 font-bold">Latest Spending</h3>
+            <h3 className="text-grey-900 font-bold">Latest Transactions</h3>
             <Link
               className="flex gap-3 items-center cursor-pointer"
               href={`/transactions?selectedCategory=${category}`}
@@ -133,14 +151,17 @@ const BudgetItem = ({ category, maximum, theme }) => {
               <div className="flex gap-4 items-center">
                 <img
                   src={item.avatar}
-                  className="w-8 h-8 rounded-full"
+                  className="hidden md:flex w-8 h-8 rounded-full"
                   alt="avatar of payee"
                 />
                 <p className="text-grey-900 text-xs font-bold">{item.name}</p>
               </div>
               <div className="flex flex-col gap-1">
                 <p className="text-grey-900 text-xs font-bold text-right">
-                  -£{(-1 * item.amount).toFixed(2)}
+                  {item.amount < 0 ? "-" : "+"}£
+                  {(item.amount < 0 ? -1 * item.amount : item.amount).toFixed(
+                    2
+                  )}
                 </p>
                 <p className="text-grey-500 text-xs text-right">
                   {format(item.date, "d MMM yyyy")}
@@ -150,6 +171,20 @@ const BudgetItem = ({ category, maximum, theme }) => {
           ))}
         </div>
       </div>
+      <EditBudgetModal
+        isVisible={editBudgetVisible}
+        onChangeVisibility={handleEditVisible}
+        maximum={maximum}
+        id={id}
+        theme={theme}
+        category={category}
+      />
+      <DeleteBudgetModal
+        isVisible={deleteBudgetVisible}
+        onChangeVisibility={handleDeleteVisible}
+        category={category}
+        id={id}
+      />
     </div>
   );
 };

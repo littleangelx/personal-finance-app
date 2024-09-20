@@ -16,6 +16,7 @@ const Budgets = () => {
   const isDesktop = useMediaQuery({ minWidth: 1280 });
 
   const budgets = useSelector((state) => state.fundsReducer.budgets);
+  console.log(budgets);
 
   const dataForCharts = budgets.map((budget) => ({
     name: budget.category,
@@ -65,15 +66,19 @@ const Budgets = () => {
         </button>
       </div>
       <div
-        className="grid grid-cols-2 gap-6"
+        className="xl:grid grid-cols-2 gap-6"
         style={{ gridTemplateColumns: "1fr 1.4fr" }}
       >
-        <div className="w-full p-8 flex flex-col gap-8 rounded-xl bg-white self-start">
+        <div className="w-full p-8 flex flex-col md:grid md:grid-cols-2   xl:flex xl:flex-col gap-8 xl:gap-8 rounded-xl bg-white self-start mb-6">
           <DonutChart data={dataForCharts} />
-          <h2 className="text-grey-900 text-xl font-bold">Spending Summary</h2>
-          {budgets.map((item) => (
-            <SpendingSummaryItem key={item.id} {...item} />
-          ))}
+          <div className="flex flex-col gap-8">
+            <h2 className="text-grey-900 text-xl font-bold">
+              Spending Summary
+            </h2>
+            {budgets.map((item) => (
+              <SpendingSummaryItem key={item.id} {...item} />
+            ))}
+          </div>
         </div>
         <div className="flex flex-col gap-6">
           {budgets.map((item) => (

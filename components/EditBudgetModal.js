@@ -1,205 +1,25 @@
 import { useState } from "react";
+import ColorTheme from "./ColorTheme";
 import { useDispatch, useSelector } from "react-redux";
-import { addBudget, addPot } from "@/store/fundsSlice";
+import { addBudget, addPot, editBudget } from "@/store/fundsSlice";
 import Select from "react-select";
 
-const AddNewBudgetModal = ({ isVisible, onChangeVisibility }) => {
-  const [category, setCategory] = useState("");
-  const [maximum, setMaximum] = useState("");
-  const [theme, setTheme] = useState("");
+const EditBudgetModal = ({
+  isVisible,
+  onChangeVisibility,
+  id,
+  category,
+  maximum,
+  theme,
+}) => {
+  const [newMaximum, setNewMaximum] = useState(maximum);
+  const [newTheme, setNewTheme] = useState(theme);
 
   const dispatch = useDispatch();
-
-  const existingCategories = useSelector(
-    (state) => state.fundsReducer.budgets
-  ).map((item) => item.category);
 
   const existingColors = useSelector((state) => state.fundsReducer.budgets).map(
     (item) => item.theme.value
   );
-
-  const CATEGORIES = [
-    {
-      value: "Entertainment",
-      label: (
-        <div className="flex justify-between items-center">
-          <p
-            className={`text-sm ${
-              existingCategories.includes("Entertainment")
-                ? "text-grey-500/50"
-                : "text-grey-900"
-            }`}
-          >
-            Entertainment
-          </p>
-          {existingCategories.includes("Entertainment") && (
-            <p className="text-xs text-grey-500">Already used</p>
-          )}
-        </div>
-      ),
-      disabled: existingCategories.includes("Entertainment"),
-    },
-    {
-      value: "Bills",
-      label: (
-        <div className="flex justify-between items-center">
-          <p
-            className={`text-sm ${
-              existingCategories.includes("Bills")
-                ? "text-grey-500/50"
-                : "text-grey-900"
-            }`}
-          >
-            Bills
-          </p>
-          {existingCategories.includes("Bills") && (
-            <p className="text-xs text-grey-500">Already used</p>
-          )}
-        </div>
-      ),
-      disabled: existingCategories.includes("Bills"),
-    },
-    {
-      value: "Groceries",
-      label: (
-        <div className="flex justify-between items-center">
-          <p
-            className={`text-sm ${
-              existingCategories.includes("Groceries")
-                ? "text-grey-500/50"
-                : "text-grey-900"
-            }`}
-          >
-            Groceries
-          </p>
-          {existingCategories.includes("Groceries") && (
-            <p className="text-xs text-grey-500">Already used</p>
-          )}
-        </div>
-      ),
-      disabled: existingCategories.includes("Groceries"),
-    },
-    {
-      value: "Dining Out",
-      label: (
-        <div className="flex justify-between items-center">
-          <p
-            className={`text-sm ${
-              existingCategories.includes("Dining Out")
-                ? "text-grey-500/50"
-                : "text-grey-900"
-            }`}
-          >
-            Dining Out
-          </p>
-          {existingCategories.includes("Dining Out") && (
-            <p className="text-xs text-grey-500">Already used</p>
-          )}
-        </div>
-      ),
-      disabled: existingCategories.includes("Dining Out"),
-    },
-    {
-      value: "Transportation",
-      label: (
-        <div className="flex justify-between items-center">
-          <p
-            className={`text-sm ${
-              existingCategories.includes("Transportation")
-                ? "text-grey-500/50"
-                : "text-grey-900"
-            }`}
-          >
-            Transportation
-          </p>
-          {existingCategories.includes("Transportation") && (
-            <p className="text-xs text-grey-500">Already used</p>
-          )}
-        </div>
-      ),
-      disabled: existingCategories.includes("Transportation"),
-    },
-    {
-      value: "Personal Care",
-      label: (
-        <div className="flex justify-between items-center">
-          <p
-            className={`text-sm ${
-              existingCategories.includes("Personal Care")
-                ? "text-grey-500/50"
-                : "text-grey-900"
-            }`}
-          >
-            Personal Care
-          </p>
-          {existingCategories.includes("Personal Care") && (
-            <p className="text-xs text-grey-500">Already used</p>
-          )}
-        </div>
-      ),
-      disabled: existingCategories.includes("Personal Care"),
-    },
-    {
-      value: "Education",
-      label: (
-        <div className="flex justify-between items-center">
-          <p
-            className={`text-sm ${
-              existingCategories.includes("Education")
-                ? "text-grey-500/50"
-                : "text-grey-900"
-            }`}
-          >
-            Education
-          </p>
-          {existingCategories.includes("Education") && (
-            <p className="text-xs text-grey-500">Already used</p>
-          )}
-        </div>
-      ),
-      disabled: existingCategories.includes("Education"),
-    },
-    {
-      value: "Lifestyle",
-      label: (
-        <div className="flex justify-between items-center">
-          <p
-            className={`text-sm ${
-              existingCategories.includes("Lifestyle")
-                ? "text-grey-500/50"
-                : "text-grey-900"
-            }`}
-          >
-            Lifestyle
-          </p>
-          {existingCategories.includes("Lifestyle") && (
-            <p className="text-xs text-grey-500">Already used</p>
-          )}
-        </div>
-      ),
-      disabled: existingCategories.includes("Lifestyle"),
-    },
-    {
-      value: "Shopping",
-      label: (
-        <div className="flex justify-between items-center">
-          <p
-            className={`text-sm ${
-              existingCategories.includes("Shopping")
-                ? "text-grey-500/50"
-                : "text-grey-900"
-            }`}
-          >
-            Shopping
-          </p>
-          {existingCategories.includes("Shopping") && (
-            <p className="text-xs text-grey-500">Already used</p>
-          )}
-        </div>
-      ),
-      disabled: existingCategories.includes("Shopping"),
-    },
-  ];
 
   const COLOUR_OPTIONS = [
     {
@@ -459,10 +279,6 @@ const AddNewBudgetModal = ({ isVisible, onChangeVisibility }) => {
     setTheme(e);
   };
 
-  const handleChooseCategory = (value) => {
-    setCategory(value);
-  };
-
   const customStyles = {
     control: (styles) => ({
       ...styles,
@@ -477,11 +293,8 @@ const AddNewBudgetModal = ({ isVisible, onChangeVisibility }) => {
     }),
   };
 
-  const handleAddBudget = () => {
-    dispatch(addBudget({ category, maximum, theme }));
-    setCategory("");
-    setMaximum("");
-    setTheme("");
+  const handleEditBudget = () => {
+    dispatch(editBudget({ id, maximum: newMaximum, theme: newTheme }));
     onChangeVisibility(false);
   };
 
@@ -491,7 +304,7 @@ const AddNewBudgetModal = ({ isVisible, onChangeVisibility }) => {
       <div className="w-[35rem] bg-white p-5 md:p-8 flex flex-col rounded-xl max-w-[90%]">
         <div className="flex justify-between items-center mb-5">
           <h1 className="text-grey-900 text-[2rem] font-bold">
-            Add New Budget
+            Edit {category} Budget
           </h1>
           <img
             src="/assets/images/icon-close-modal.svg"
@@ -501,23 +314,15 @@ const AddNewBudgetModal = ({ isVisible, onChangeVisibility }) => {
           />
         </div>
         <p className="text-sm text-grey-500 mb-5">
-          Choose a category to set a spending budget. These categories can help
-          you monitor spending.
+          As your budgets change, feel free to update your spending limits.
         </p>
-        <div className="flex flex-col gap-1 mb-4">
-          <p className="text-grey-500 text-xs font-bold">Budget Category</p>
-          <Select
-            options={CATEGORIES}
-            styles={customStyles}
-            isOptionDisabled={(option) => option.disabled}
-            onChange={(e) => setCategory(e.value)}
-          />
-        </div>
+
         <div>
           <p className="text-grey-500 text-xs font-bold mb-1">Maximum Spend</p>
           <input
             className="w-full h-[2.8125rem] rounded-lg pl-12 border border-beige-500 relative"
-            onChange={(e) => setMaximum(+e.target.value)}
+            onChange={(e) => setNewMaximum(+e.target.value)}
+            defaultValue={newMaximum.toFixed(2)}
           />
           <p className="relative -top-8 left-5 text-beige-500 text-sm">£</p>
         </div>
@@ -528,18 +333,18 @@ const AddNewBudgetModal = ({ isVisible, onChangeVisibility }) => {
             styles={customStyles}
             isOptionDisabled={(option) => option.disabled}
             menuPosition="fixed"
-            onChange={(e) => setTheme(e.value)}
+            onChange={(e) => setNewTheme(e.value)}
           />
         </div>
         <button
           className="mt-5 w-full h-[3.3125rem] bg-grey-900 text-white text-sm font-bold rounded-lg"
-          onClick={handleAddBudget}
+          onClick={handleEditBudget}
         >
-          Add Budget
+          Save Changes
         </button>
       </div>
     </div>
   );
 };
 
-export default AddNewBudgetModal;
+export default EditBudgetModal;

@@ -1,5 +1,3 @@
-import React from "react";
-
 const DonutChart = ({ data }) => {
   const total_value = data.reduce((a, b) => a + b.value, 0);
   const total_available = data.reduce((a, b) => a + b.maximum, 0);
@@ -25,12 +23,12 @@ const DonutChart = ({ data }) => {
     .join(", ");
 
   return (
-    <div className="flex flex-col gap-8 grow relative">
+    <div className="flex flex-col gap-8 grow relative self-center items-center">
       <div>
         <svg
           viewBox="0 0 100 100"
           xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-full rounded-full"
+          className="w-60 h-60 rounded-full"
         >
           <clipPath id="hole">
             <path d="M 50 0 a 50 50 0 0 1 0 100 50 50 0 0 1 0 -100 v 18 a 2 2 0 0 0 0 64 2 2 0 0 0 0 -64" />
@@ -54,10 +52,10 @@ const DonutChart = ({ data }) => {
         </svg>
       </div>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <h3 className="text-grey-900 text-[2rem] font-bold">
+        <h3 className="text-grey-900 text-xl   font-bold text-center">
           £{total_value.toFixed(2)}
         </h3>
-        <p className="text-xs text-grey-500">
+        <p className="text-xs text-grey-500 text-center">
           of £{total_available.toFixed(2)} limit
         </p>
       </div>

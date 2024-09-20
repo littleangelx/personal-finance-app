@@ -10,8 +10,6 @@ import { useMediaQuery } from "react-responsive";
 const Pots = () => {
   const { isMinimised } = useMinimised();
 
-  localStorage.clear();
-
   const isDesktop = useMediaQuery({ minWidth: 1280 });
 
   const pots = useSelector((state) => state.fundsReducer.pots);

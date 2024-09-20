@@ -1,9 +1,7 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-import { useState } from "react";
-import DesktopNavItem from "./DesktopNavItem";
 import { useMinimised } from "@/context/sidebarWidth";
+import DesktopNavItem from "./DesktopNavItem";
 
 const DesktopNav = () => {
   const { isMinimised, toggleMinimised } = useMinimised();
