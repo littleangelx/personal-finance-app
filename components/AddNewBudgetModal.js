@@ -515,10 +515,14 @@ const AddNewBudgetModal = ({ isVisible, onChangeVisibility }) => {
         </div>
         <div>
           <p className="text-grey-500 text-xs font-bold mb-1">Maximum Spend</p>
-          <input
-            className="w-full h-[2.8125rem] rounded-lg pl-12 border border-beige-500 relative"
-            onChange={(e) => setMaximum(+e.target.value)}
-          />
+          <div className="w-full flex-1 h-[2.8125rem] rounded-lg pl-5 border border-beige-500 relative flex items-center">
+            <p className=" text-beige-500 text-sm">£</p>
+            <input
+              className="outline-none"
+              onChange={(e) => setMaximum(+e.target.value)}
+            />
+          </div>
+
           <p className="relative -top-8 left-5 text-beige-500 text-sm">£</p>
         </div>
         <div>

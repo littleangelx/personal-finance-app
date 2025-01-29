@@ -83,13 +83,15 @@ const AddToPotModal = ({
         </div>
         <div>
           <p className="text-grey-500 text-xs font-bold mb-1">Amount to Add</p>
-          <input
-            className="w-full flex-1 h-[2.8125rem] rounded-lg pl-12 border border-beige-500 relative"
-            onChange={(e) => setNewAmount(e.target.value)}
-          />
-          <p className="relative -top-8 left-5 text-beige-500 text-sm">£</p>
+          <div className="w-full flex-1 h-[2.8125rem] rounded-lg pl-5 border border-beige-500 relative flex items-center">
+            <p className=" text-beige-500 text-sm">£</p>
+            <input
+              className="outline-none"
+              onChange={(e) => setNewAmount(e.target.value)}
+            />
+          </div>
           <button
-            className="w-full h-[3.3125rem] bg-grey-900 text-white text-sm font-bold rounded-lg"
+            className="w-full h-[3.3125rem] bg-grey-900 text-white text-sm font-bold rounded-lg mt-5"
             onClick={handleConfirm}
           >
             Confirm Addition
