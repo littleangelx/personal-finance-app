@@ -38,7 +38,9 @@ const DesktopNav = () => {
           className={`ml-8 ${isMinimised ? "rotate-180" : ""}`}
         />
         {!isMinimised && (
-          <p className="font-bold text-grey-300">Minimise menu</p>
+          <p className="font-bold text-grey-300 hover:text-grey-100">
+            Minimise menu
+          </p>
         )}
       </div>
     </div>

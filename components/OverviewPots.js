@@ -7,9 +7,11 @@ const OverviewPots = () => {
   return (
     <div className="w-full bg-white py-6 px-5 md:p-8 flex flex-col gap-5 rounded-xl">
       <div className="flex justify-between items-center">
-        <h3 className="text-grey-900 font-bold text-xl">Pots</h3>
+        <h3 className="text-grey-900 font-bold text-xl">Saving Pot</h3>
         <Link className="flex gap-3 items-center cursor-pointer" href={"/pots"}>
-          <p className="text-grey-500 text-sm">See Details</p>
+          <p className="text-grey-500 text-sm hover:text-grey-900">
+            See Details
+          </p>
           <img
             src={"/assets/images/icon-caret-right.svg"}
             alt="arrow to see all transactions in this category"

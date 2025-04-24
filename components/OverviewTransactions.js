@@ -13,7 +13,7 @@ const OverviewTransactions = () => {
           className="flex gap-3 items-center cursor-pointer"
           href={"/transactions"}
         >
-          <p className="text-grey-500 text-sm">View All</p>
+          <p className="text-grey-500 text-sm hover:text-grey-900">View All</p>
           <img
             src={"/assets/images/icon-caret-right.svg"}
             alt="arrow to see all transactions in this category"

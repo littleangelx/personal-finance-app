@@ -69,7 +69,9 @@ const OverviewBills = () => {
           className="flex gap-3 items-center cursor-pointer"
           href={"/recurring-bills"}
         >
-          <p className="text-grey-500 text-sm">See Details</p>
+          <p className="text-grey-500 hover:text-grey-900 text-sm">
+            See Details
+          </p>
           <img
             src={"/assets/images/icon-caret-right.svg"}
             alt="arrow to see all transactions in this category"

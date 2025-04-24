@@ -522,7 +522,6 @@ const AddNewBudgetModal = ({ isVisible, onChangeVisibility }) => {
               onChange={(e) => setMaximum(+e.target.value)}
             />
           </div>
-
           <p className="relative -top-8 left-5 text-beige-500 text-sm">£</p>
         </div>
         <div>

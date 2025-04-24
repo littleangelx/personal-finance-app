@@ -45,7 +45,9 @@ const DesktopNavItem = ({ category, name }) => {
       {!isMinimised && (
         <p
           className={`font-bold ${
-            pathname === category ? "text-grey-900" : "text-grey-300"
+            pathname === category
+              ? "text-grey-900"
+              : "text-grey-300 hover:text-grey-100"
           }`}
         >
           {name}

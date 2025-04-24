@@ -314,8 +314,10 @@ const Transactions = () => {
               <>
                 <div
                   key={num}
-                  className={`w-10 h-10 flex justify-center items-center cursor-pointer border border-beige-500 rounded-lg ${
-                    num === currentPage ? "bg-grey-900" : "bg-white"
+                  className={`w-10 h-10 flex justify-center items-center cursor-pointer border border-beige-500 rounded-lg group ${
+                    num === currentPage
+                      ? "bg-grey-900"
+                      : "bg-white hover:bg-beige-500"
                   } ${
                     num !== "..." &&
                     num !== 1 &&
@@ -328,7 +330,9 @@ const Transactions = () => {
                 >
                   <p
                     className={`text-sm ${
-                      num === currentPage ? "text-white" : "text-grey-900"
+                      num === currentPage
+                        ? "text-white"
+                        : "text-grey-900 group-hover:text-white"
                     }`}
                   >
                     {num}
